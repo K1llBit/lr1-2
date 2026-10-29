@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily News</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+    <style>
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            line-height: 1.6;
+            color: #343a40;
+            background-color: #f8f9fa;
+        }
+        .top-bar { background-color: #343a40; color: #adb5bd; font-size: .85rem; padding: .5rem 0; }
+        .top-bar .social-icons a { color: #adb5bd; margin-left: 10px; transition: color .2s ease; }
+        .top-bar .social-icons a:hover { color: #fff; }
+        .header-main { background: #fff; padding: 1.5rem 0; border-bottom: 1px solid #e9ecef; }
+        .header-main .logo { font-family: 'Times New Roman', serif; font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: bold; color: #212529; }
+        .ad-banner { background: #e9ecef; min-height: 90px; display: flex; align-items: center; justify-content: center; color: #6c757d; font-size: 1.1rem; border-radius: .25rem; }
+        .main-navbar { background: #fff; border-bottom: 1px solid #e9ecef; margin-bottom: 2rem; padding: .5rem 0; }
+        .main-navbar .nav-link { font-weight: 600; color: #343a40; padding: .75rem 1rem; }
+        .main-navbar .nav-link:hover { color: #007bff; }
+        .featured-article, .news-card, .sidebar-section, .must-read-card { background: #fff; border: 1px solid #e9ecef; border-radius: .5rem; overflow: hidden; }
+        .featured-article { box-shadow: 0 .5rem 1rem rgba(0,0,0,.1); margin-bottom: 2rem; display: flex; flex-direction: column; }
+        .featured-article .featured-img { width: 100%; height: 400px; object-fit: cover; background: #e9ecef; }
+        .featured-content { padding: 2rem; flex-grow: 1; }
+        .card-category { display: block; font-size: .75rem; font-weight: bold; text-transform: uppercase; color: #007bff; margin-bottom: .5rem; }
+        .featured-title { font-family: 'Times New Roman', serif; font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: bold; color: #212529; margin-bottom: .75rem; }
+        .featured-text { font-size: 1rem; color: #495057; }
+        .featured-meta { font-size: .85rem; color: #868e96; margin-top: 1rem; }
+        .news-card { height: 100%; display: flex; flex-direction: column; transition: box-shadow .3s ease; }
+        .news-card:hover { box-shadow: 0 .5rem 1rem rgba(0,0,0,.1); }
+        .news-card .card-img-top { width: 100%; height: 200px; object-fit: cover; background: #e9ecef; }
+        .news-card .card-body { padding: 1.25rem; flex-grow: 1; display: flex; flex-direction: column; }
+        .news-card .card-title { font-family: 'Times New Roman', serif; font-weight: bold; color: #212529; font-size: 1.35rem; margin-bottom: .75rem; }
+        .news-card .card-text { font-size: .9rem; color: #6c757d; flex-grow: 1; }
+        .news-card .card-footer { background: #fff; border-top: 1px solid #e9ecef; padding: .75rem 1.25rem; font-size: .8rem; color: #868e96; margin-top: auto; }
+        .sidebar-section { padding: 1.5rem; margin-bottom: 1.5rem; }
+        .sidebar-section h5 { font-family: 'Times New Roman', serif; font-weight: bold; color: #212529; margin-bottom: 1rem; }
+        .sidebar-section .list-group-item { border: 0; padding: .75rem 0; color: #495057; }
+        .sidebar-section .list-group-item a { color: inherit; text-decoration: none; }
+        .sidebar-section .list-group-item a:hover { color: #007bff; }
+        .ad-block { background: #e9ecef; min-height: 150px; display: flex; align-items: center; justify-content: center; color: #6c757d; font-size: 1rem; border-radius: .25rem; }
+        .must-read-card { display: flex; flex-direction: row; height: 100%; margin-bottom: 1.5rem; transition: box-shadow .3s ease; }
+        .must-read-card:hover { box-shadow: 0 .25rem .5rem rgba(0,0,0,.08); }
+        .must-read-card .card-img { width: 150px; min-width: 150px; height: 100%; min-height: 180px; object-fit: cover; background: #e9ecef; }
+        .must-read-card .card-body { padding: 1rem; display: flex; flex-direction: column; flex-grow: 1; }
+        .must-read-card .card-title { font-family: 'Times New Roman', serif; font-weight: bold; color: #212529; font-size: 1.2rem; margin-bottom: .5rem; }
+        .must-read-card .card-text { font-size: .85rem; color: #6c757d; flex-grow: 1; }
+        .must-read-card .card-meta { font-size: .75rem; color: #868e96; margin-top: .5rem; }
+        .must-read-section .col-md-6 { display: flex; }
+        .must-read-section .must-read-card { width: 100%; }
+        .footer { background: #343a40; color: #fff; padding: 3rem 0; font-size: .9rem; margin-top: 3rem; }
+        .footer h5 { color: #fff; margin-bottom: 1rem; font-weight: bold; }
+        .footer ul { list-style: none; padding: 0; }
+        .footer ul li a { color: #adb5bd; text-decoration: none; padding: .25rem 0; display: block; }
+        .footer ul li a:hover { color: #fff; }
+        .footer .copyright { border-top: 1px solid #495057; padding-top: 1.5rem; margin-top: 2rem; color: #adb5bd; font-size: .8rem; }
+        @media (max-width: 767.98px) {
+            .featured-article .featured-img { height: 250px; }
+            .featured-content { padding: 1.25rem; }
+            .must-read-card { flex-direction: column; }
+            .must-read-card .card-img { width: 100%; min-width: 0; height: 200px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid top-bar d-none d-md-block">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="top-info">
+                <span><i class="far fa-calendar-alt me-1"></i> Thursday, October 29, 2026</span>
+                <span class="ms-3"><i class="fas fa-cloud-sun me-1"></i> Kyiv 14°C</span>
+            </div>
+            <div class="social-icons">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <header class="container-fluid header-main">
+        <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+            <a href="#" class="logo text-decoration-none">Daily News</a>
+            <div class="ad-banner mt-3 mt-md-0 d-none d-md-flex col-md-8">Advertisement Banner 728x90</div>
+        </div>
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-light main-navbar">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#world">World</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#politics">Politics</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#business">Business</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#technology">Technology</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#sports">Sports</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#culture">Culture</a></li>
+                </ul>
+                <form class="d-flex" role="search" onsubmit="event.preventDefault(); alert('Search is a demo feature.');">
+                    <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
+                    <button class="btn btn-outline-primary" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="row g-4">
+            <div class="col-12 col-lg-8">
+                <article class="featured-article">
+                    <img class="featured-img" src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80" alt="Future technologies" onerror="this.onerror=null;this.src='https://placehold.co/800x400/e9ecef/6c757d?text=Future+Technologies';">
+                    <div class="featured-content">
+                        <span class="card-category">Technology</span>
+                        <h2 class="featured-title">The Future of Artificial Intelligence: New Horizons</h2>
+                        <p class="featured-text">Experts predict that artificial intelligence will continue to transform many aspects of our lives, from medicine to education. New developments promise revolutionary changes.</p>
+                        <p class="featured-meta mb-0"><i class="far fa-clock"></i> 2 hours ago <span class="mx-2">|</span> <i class="far fa-comment"></i> 12 comments</p>
+                    </div>
+                </article>
+
+                <h4 class="mb-3">Latest News</h4>
+                <div class="row g-4 mb-4">
+                    <div class="col-12 col-md-6">
+                        <article class="news-card">
+                            <img class="card-img-top" src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=800&q=80" alt="World politics" onerror="this.onerror=null;this.src='https://placehold.co/800x400/e9ecef/6c757d?text=World+News';">
+                            <div class="card-body"><span class="card-category">Politics</span><h5 class="card-title">World Leaders Meet to Discuss Global Challenges</h5><p class="card-text">Leaders gathered to discuss cooperation, security, and new approaches to international issues.</p></div>
+                            <div class="card-footer"><i class="far fa-clock"></i> 3 hours ago</div>
+                        </article>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <article class="news-card">
+                            <img class="card-img-top" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Business analytics" onerror="this.onerror=null;this.src='https://placehold.co/800x400/e9ecef/6c757d?text=Business';">
+                            <div class="card-body"><span class="card-category">Economy</span><h5 class="card-title">Markets Show Signs of Steady Growth</h5><p class="card-text">New reports suggest that businesses are adapting to changing market conditions.</p></div>
+                            <div class="card-footer"><i class="far fa-clock"></i> 4 hours ago</div>
+                        </article>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <article class="news-card">
+                            <img class="card-img-top" src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=800&q=80" alt="Coast and sea" onerror="this.onerror=null;this.src='https://placehold.co/800x400/e9ecef/6c757d?text=Culture';">
+                            <div class="card-body"><span class="card-category">Culture</span><h5 class="card-title">New Cultural Projects Bring Communities Together</h5><p class="card-text">Artists and local organizations are launching projects designed to make culture accessible to everyone.</p></div>
+                            <div class="card-footer"><i class="far fa-clock"></i> 5 hours ago</div>
+                        </article>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <article class="news-card">
+                            <img class="card-img-top" src="https://images.unsplash.com/photo-1460114928626-4e0b5f8e6f5b?auto=format&fit=crop&w=800&q=80" alt="Sports stadium" onerror="this.onerror=null;this.src='https://placehold.co/800x400/e9ecef/6c757d?text=Sports';">
+                            <div class="card-body"><span class="card-category">Sports</span><h5 class="card-title">Athletes Prepare for an Exciting Championship</h5><p class="card-text">Teams are completing their final preparations ahead of the upcoming competition.</p></div>
+                            <div class="card-footer"><i class="far fa-clock"></i> 6 hours ago</div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="col-12 col-lg-4">
+                <section class="sidebar-section">
+                    <h5>Popular Posts</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><a href="#">How Technology Is Changing Everyday Life</a></li>
+                        <li class="list-group-item"><a href="#">The World's Most Important Events This Week</a></li>
+                        <li class="list-group-item"><a href="#">Simple Ways to Improve Your Wellbeing</a></li>
+                        <li class="list-group-item"><a href="#">What to Know About the Global Economy</a></li>
+                        <li class="list-group-item"><a href="#">New Discoveries That Inspire Scientists</a></li>
+                    </ul>
+                </section>
+                <section class="sidebar-section">
+                    <h5>Advertisement</h5>
+                    <div class="ad-block">Advertisement 300x250</div>
+                </section>
+                <section class="sidebar-section">
+                    <h5>Categories</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><a href="#technology">Technology (23)</a></li>
+                        <li class="list-group-item"><a href="#business">Economy (18)</a></li>
+                        <li class="list-group-item"><a href="#politics">Politics (15)</a></li>
+                        <li class="list-group-item"><a href="#sports">Sports (20)</a></li>
+                        <li class="list-group-item"><a href="#culture">Culture (10)</a></li>
+                    </ul>
+                </section>
+            </aside>
+        </div>
+
+        <section>
+            <h3 class="mt-5 mb-4 text-center">Must Read</h3>
+            <div class="row g-4 must-read-section">
+                <div class="col-12 col-md-6">
+                    <article class="must-read-card">
+                        <img class="card-img" src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=500&q=80" alt="Electronic technology" onerror="this.onerror=null;this.src='https://placehold.co/300x300/e9ecef/6c757d?text=Technology';">
+                        <div class="card-body"><h5 class="card-title">Innovations That Could Shape Our Future</h5><p class="card-text">Researchers are exploring new tools that may change how people work and communicate.</p><div class="card-meta"><i class="far fa-clock"></i> 1 hour ago</div></div>
+                    </article>
+                </div>
+                <div class="col-12 col-md-6">
+                    <article class="must-read-card">
+                        <img class="card-img" src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=500&q=80" alt="Finance and money" onerror="this.onerror=null;this.src='https://placehold.co/300x300/e9ecef/6c757d?text=Finance';">
+                        <div class="card-body"><h5 class="card-title">Understanding the Changing World Economy</h5><p class="card-text">Experts explain the trends that are influencing businesses and consumers.</p><div class="card-meta"><i class="far fa-clock"></i> 2 hours ago</div></div>
+                    </article>
+                </div>
+                <div class="col-12 col-md-6">
+                    <article class="must-read-card">
+                        <img class="card-img" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=500&q=80" alt="Travel landscape" onerror="this.onerror=null;this.src='https://placehold.co/300x300/e9ecef/6c757d?text=Travel';">
+                        <div class="card-body"><h5 class="card-title">Travel Destinations Worth Discovering</h5><p class="card-text">A look at inspiring places for travelers who want to experience something new.</p><div class="card-meta"><i class="far fa-clock"></i> 4 hours ago</div></div>
+                    </article>
+                </div>
+                <div class="col-12 col-md-6">
+                    <article class="must-read-card">
+                        <img class="card-img" src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=500&q=80" alt="People working with computers" onerror="this.onerror=null;this.src='https://placehold.co/300x300/e9ecef/6c757d?text=Digital+Life';">
+                        <div class="card-body"><h5 class="card-title">Building Better Habits in a Digital World</h5><p class="card-text">Small changes can help people use technology in a more balanced way.</p><div class="card-meta"><i class="far fa-clock"></i> 5 hours ago</div></div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h3 class="mt-5 mb-4 text-center">Popular News</h3>
+            <div class="row g-4 mb-5">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3"><article class="news-card"><img class="card-img-top" src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=500&q=80" alt="Travel landscape" onerror="this.onerror=null;this.src='https://placehold.co/500x300/e9ecef/6c757d?text=Travel';"><div class="card-body"><span class="card-category">Travel</span><h5 class="card-title">Beautiful Places to Explore</h5></div><div class="card-footer"><i class="far fa-clock"></i> 1 hour ago</div></article></div>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3"><article class="news-card"><img class="card-img-top" src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=500&q=80" alt="Music performance" onerror="this.onerror=null;this.src='https://placehold.co/500x300/e9ecef/6c757d?text=Music';"><div class="card-body"><span class="card-category">Music</span><h5 class="card-title">Artists Bring New Sounds to the Stage</h5></div><div class="card-footer"><i class="far fa-clock"></i> 2 hours ago</div></article></div>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3"><article class="news-card"><img class="card-img-top" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=500&q=80" alt="Digital gadgets" onerror="this.onerror=null;this.src='https://placehold.co/500x300/e9ecef/6c757d?text=Gadgets';"><div class="card-body"><span class="card-category">Gadgets</span><h5 class="card-title">Devices Designed for Modern Life</h5></div><div class="card-footer"><i class="far fa-clock"></i> 3 hours ago</div></article></div>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3"><article class="news-card"><img class="card-img-top" src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=500&q=80" alt="Science laboratory" onerror="this.onerror=null;this.src='https://placehold.co/500x300/e9ecef/6c757d?text=Science';"><div class="card-body"><span class="card-category">Science</span><h5 class="card-title">Research Opens New Possibilities</h5></div><div class="card-footer"><i class="far fa-clock"></i> 4 hours ago</div></article></div>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3"><article class="news-card"><img class="card-img-top" src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=500&q=80" alt="Earth from space" onerror="this.onerror=null;this.src='https://placehold.co/500x300/e9ecef/6c757d?text=Space';"><div class="card-body"><span class="card-category">Space</span><h5 class="card-title">A New Look at Our Universe</h5></div><div class="card-footer"><i class="far fa-clock"></i> 5 hours ago</div></article></div>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3"><article class="news-card"><img class="card-img-top" src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=500&q=80" alt="Healthy food" onerror="this.onerror=null;this.src='https://placehold.co/500x300/e9ecef/6c757d?text=Food';"><div class="card-body"><span class="card-category">Food</span><h5 class="card-title">Fresh Ideas for Everyday Meals</h5></div><div class="card-footer"><i class="far fa-clock"></i> 6 hours ago</div></article></div>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3"><article class="news-card"><img class="card-img-top" src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=500&q=80" alt="Art supplies" onerror="this.onerror=null;this.src='https://placehold.co/500x300/e9ecef/6c757d?text=Art';"><div class="card-body"><span class="card-category">Art</span><h5 class="card-title">Creative Projects Inspire Communities</h5></div><div class="card-footer"><i class="far fa-clock"></i> 7 hours ago</div></article></div>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3"><article class="news-card"><img class="card-img-top" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=500&q=80" alt="Finance charts" onerror="this.onerror=null;this.src='https://placehold.co/500x300/e9ecef/6c757d?text=Finance';"><div class="card-body"><span class="card-category">Finance</span><h5 class="card-title">Making Sense of Personal Finance</h5></div><div class="card-footer"><i class="far fa-clock"></i> 8 hours ago</div></article></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-12 col-md-4"><h5>About Us</h5><p>Daily News brings readers the latest stories from technology, business, culture, sports, and around the world.</p></div>
+                <div class="col-12 col-md-4"><h5>Quick Links</h5><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Use</a></li><li><a href="#">Contact Us</a></li><li><a href="#">Sitemap</a></li></ul></div>
+                <div class="col-12 col-md-4"><h5>Subscribe to our Newsletter</h5><p>Get the latest headlines delivered to your inbox.</p><form onsubmit="event.preventDefault(); alert('Thank you for subscribing!');"><div class="input-group mb-3"><input type="email" class="form-control" placeholder="Your email" aria-label="Your email" required><button class="btn btn-primary" type="submit">Subscribe</button></div></form></div>
+            </div>
+            <div class="row"><div class="col-12 text-center copyright">&copy; 2026 Daily News. All rights reserved.</div></div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+            crossorigin="anonymous"></script>
+</body>
+</html>
